@@ -14,5 +14,7 @@ public:
 	Grass();
 	~Grass();
 
+	terrainList Grass::canBeOn()override;
+
 };
 

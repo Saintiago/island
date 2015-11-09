@@ -15,16 +15,19 @@ IslandBlock::~IslandBlock()
 
 void IslandBlock::init()
 {
-	this->terrain = this->getRandomTerrain();
-	this->weather = this->getRandomWeather();
+	terrain = getRandomTerrain();
+	randomizeWeather();
 }
 
+void IslandBlock::randomizeWeather()
+{
+	weather = getRandomWeather();
+}
 
 TerrainType IslandBlock::getRandomTerrain()
 {
 	return this->possibleTerrain[rand() % this->possibleTerrain.size()];
 }
-
 
 WeatherType IslandBlock::getRandomWeather()
 {

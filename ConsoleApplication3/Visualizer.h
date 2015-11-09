@@ -5,6 +5,8 @@
 #include "map"
 #include "GeoData.h"
 #include <string>
+#include <iostream>
+#include "Windows.h"
 
 class Visualizer
 {
@@ -15,27 +17,27 @@ public:
 	
 private:
 
-	int blockWidth = 7;
-	int blockHeight = 3;
+	int m_blockWidth = 16;
+	int m_blockHeight = 8;
 
-	map<TerrainType, char> terrainPattern = 
+	map<TerrainType, int> terrainPattern = 
 	{ 
-		{ TerrainType::PLAIN, 'P' },
-		{ TerrainType::ROCK, 'R' },
-		{ TerrainType::WATER, 'W' }
+		{ TerrainType::PLAIN, 47 },
+		{ TerrainType::ROCK, 127 },
+		{ TerrainType::WATER, 159 }
 	};
 
 	map<WeatherType, string> weatherPattern =
 	{
-		{ WeatherType::RAIN, "ra" },
-		{ WeatherType::SNOW, "sn" },
-		{ WeatherType::SUN, "su" },
-		{ WeatherType::SUN_SUN, "susu" },
-		{ WeatherType::RAIN_RAIN, "rara" },
-		{ WeatherType::SNOW_SNOW, "snsn" },
-		{ WeatherType::SUN_RAIN, "sura" },
-		{ WeatherType::SUN_SNOW, "susn" },
-		{ WeatherType::RAIN_SNOW, "rasn" },
+		{ WeatherType::RAIN, " :" },
+		{ WeatherType::SNOW, " *" },
+		{ WeatherType::SUN, " o" },
+		{ WeatherType::SUN_SUN, "oo" },
+		{ WeatherType::RAIN_RAIN, "::" },
+		{ WeatherType::SNOW_SNOW, "**" },
+		{ WeatherType::SUN_RAIN, "o:" },
+		{ WeatherType::SUN_SNOW, "o*" },
+		{ WeatherType::RAIN_SNOW, ":*" },
 	};
 
 	map<CritterType, char> critterPattern =
@@ -43,15 +45,15 @@ private:
 		{ CritterType::GRASS, '1' }
 	};
 
-	void showMap(islandMap);
-	void showCritters(critterList);
+	void showMap(islandMap map, Critter::CritterList critters);
+	Critter::CritterList GetCrittersAtPos(Pos pos, Critter::CritterList critters);
 
-	void drawBlock(IslandBlock);
-	void drawTerrain(TerrainType);
-	void drawWeather(WeatherType);
-	void drawCritter(CritterType);
+	void drawBlock(IslandBlock tile, Pos pos, Critter::CritterList critters);
+	void DrawTerrain(TerrainType, Pos pos);
+	void DrawWeather(WeatherType, Pos pos);
+	void DrawBlockCritters(Pos pos, Critter::CritterList critters);
 	void putCursorToPosition(int x, int y);
-	void gotoxy(int x, int y);
 	void clrscr();
+	void SetColor(int code);
 };
 

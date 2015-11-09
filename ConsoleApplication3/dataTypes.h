@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
-#include "Critter.h"
+
+using namespace std;
 
 enum class TerrainType
 {
@@ -31,5 +32,5 @@ struct Pos
 	int y;
 };
 
-typedef vector<Critter> critterList;
+
 typedef vector<TerrainType> terrainList;

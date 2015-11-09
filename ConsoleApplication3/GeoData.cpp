@@ -1,8 +1,5 @@
 #include "stdafx.h"
 #include "GeoData.h"
-#include "islandMap.h"
-#include <algorithm>
-
 
 GeoData::GeoData()
 {
@@ -26,7 +23,7 @@ Pos GeoData::getRandomPosOf(terrainList terrain)
 	{
 		Pos pos = getRandomPos();
 		IslandBlock block = mapOfIsland.map[pos.x][pos.y];
-		if (find(terrain.begin(), terrain.end(), block.terrain))
+		if (find(terrain.begin(), terrain.end(), block.terrain) != terrain.end())
 		{
 			return pos;
 			break;
@@ -38,7 +35,7 @@ Pos GeoData::getRandomPosOf(terrainList terrain)
 Pos GeoData::getRandomPos()
 {
 	int x = rand() % islandMap::MAP_WIDTH;
-	int y = rand() % islandMap::MAP_WIDTH;
+	int y = rand() % islandMap::MAP_HEIGHT;
 	return { x, y };
 }
 
@@ -47,12 +44,17 @@ IslandBlock GeoData::getBlockAt(Pos pos)
 	return mapOfIsland.map[pos.x][pos.y];
 }
 
-critterList GeoData::getCritters()
+Critter::CritterList GeoData::GetCritters()
 {
 	return critters;
 }
 
-islandMap GeoData::getMap()
+islandMap GeoData::GetMap()
 {
 	return mapOfIsland;
+}
+
+void GeoData::randomizeWeather()
+{
+	mapOfIsland.randomizeWeather();
 }

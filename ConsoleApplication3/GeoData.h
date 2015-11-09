@@ -5,6 +5,7 @@
 #include "dataTypes.h"
 #include "Grass.h"
 #include <map>
+#include <algorithm>
 
 class GeoData
 {
@@ -13,9 +14,9 @@ public:
 	~GeoData();
 
 	void placeCritter(Critter critter);
-	critterList getCritters();
-	islandMap getMap();
-
+	Critter::CritterList GetCritters();
+	islandMap GetMap();
+	void randomizeWeather();
 		
 private:
 
@@ -24,7 +25,7 @@ private:
 	Pos GeoData::getRandomPos();
 	IslandBlock GeoData::getBlockAt(Pos pos);
 	
-	critterList critters;
+	Critter::CritterList critters;
 	map<CritterType, terrainList> acceptableTerrain = 
 	{
 		{ CritterType::GRASS, vector<TerrainType> {TerrainType::PLAIN} }

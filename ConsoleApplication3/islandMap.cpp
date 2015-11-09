@@ -5,7 +5,7 @@
 
 islandMap::islandMap()
 {
-	this->init();
+	init();
 }
 
 
@@ -22,5 +22,15 @@ void islandMap::init()
 			map[i][j] = IslandBlock::IslandBlock();
 		}
 	}
-	std::cout << std::endl;
+}
+
+void islandMap::randomizeWeather()
+{
+	for (int i = 0; i < islandMap::MAP_WIDTH; i++)
+	{
+		for (int j = 0; j < islandMap::MAP_HEIGHT; j++)
+		{
+			map[i][j].randomizeWeather();
+		}
+	}
 }

@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "Critter.h"
-#include "dataTypes.h"
-
 
 Critter::Critter()
 {
@@ -28,7 +26,19 @@ void Critter::setPos(Pos pos)
 	m_pos = pos;
 }
 
+void Critter::setType(CritterType type)
+{
+	m_type = type;
+}
+
 CritterType Critter::getType()
 {
-	return type;
+	return m_type;
+}
+
+terrainList Critter::canBeOn()
+{
+	terrainList terrain;
+	terrain.push_back(TerrainType::PLAIN);
+	return terrain;
 }

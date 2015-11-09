@@ -17,6 +17,7 @@ public:
 	~IslandBlock();
 
 	void init();
+	void randomizeWeather();
 
 private:
 	array<TerrainType, 3> possibleTerrain = { TerrainType::ROCK, TerrainType::WATER, TerrainType::PLAIN };

@@ -3,7 +3,7 @@
 
 Grass::Grass()
 {
-	type = CritterType::GRASS;
+	setType(CritterType::GRASS);
 }
 
 Grass::~Grass()

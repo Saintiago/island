@@ -32,19 +32,30 @@ void Simulation::stop()
 }
 
 
-void Simulation::nextIteration()
+void Simulation::NextIteration()
 {
+	randomizeWeather();
+	display.show(geodata);
+	iteration++;
 }
 
 
 void Simulation::waitForCommand()
 {
+	while (_getch() != VK_ESCAPE)
+	{
+		NextIteration();
+	}
 }
 
+void Simulation::randomizeWeather()
+{
+	geodata.randomizeWeather();
+}
 
 void Simulation::populate()
 {
-	placeGrass(50);
+	placeGrass(200);
 }
 
 void Simulation::placeGrass(int quantity)

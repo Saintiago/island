@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <conio.h>
 #include "islandMap.h"
 #include "Visualizer.h"
 #include "dataTypes.h"
@@ -20,8 +21,9 @@ private:
 	GeoData geodata;
 
 	void stop();
-	void nextIteration();
+	void NextIteration();
 	void waitForCommand();
+	void randomizeWeather();
 	void populate();
 	void placeGrass(int quantity);
 };
