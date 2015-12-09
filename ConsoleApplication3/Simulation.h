@@ -23,8 +23,7 @@ private:
 	void stop();
 	void NextIteration();
 	void waitForCommand();
-	void randomizeWeather();
 	void populate();
-	void placeGrass(int quantity);
+	void placeCritters(CritterType type, int quantity);
 };
 

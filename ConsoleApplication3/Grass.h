@@ -14,7 +14,8 @@ public:
 	Grass();
 	~Grass();
 
-	terrainList Grass::canBeOn()override;
-
+	typedef map <WeatherType, int> GrassWeather;
+	static GrassWeather weatherReaction;
+	static int limitOnBlock;
 };
 

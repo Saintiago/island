@@ -13,9 +13,11 @@ class Visualizer
 public:
 	Visualizer();
 	~Visualizer();
-	void show(GeoData);
+	void show(GeoData geo);
 	
 private:
+
+	GeoData m_geo;
 
 	int m_blockWidth = 16;
 	int m_blockHeight = 8;
@@ -42,16 +44,18 @@ private:
 
 	map<CritterType, char> critterPattern =
 	{
-		{ CritterType::GRASS, '1' }
+		{ CritterType::GRASS, '1' },
+		{ CritterType::RABBIT, 'R' },
+		{ CritterType::HUNTER, 'H' },
+		{ CritterType::WOLF, 'W' }
 	};
 
-	void showMap(islandMap map, Critter::CritterList critters);
-	Critter::CritterList GetCrittersAtPos(Pos pos, Critter::CritterList critters);
+	void showMap(islandMap map, CritterList critters);
 
-	void drawBlock(IslandBlock tile, Pos pos, Critter::CritterList critters);
+	void drawBlock(IslandBlock tile, Pos pos, CritterList critters);
 	void DrawTerrain(TerrainType, Pos pos);
 	void DrawWeather(WeatherType, Pos pos);
-	void DrawBlockCritters(Pos pos, Critter::CritterList critters);
+	void DrawBlockCritters(Pos pos, CritterList critters);
 	void putCursorToPosition(int x, int y);
 	void clrscr();
 	void SetColor(int code);

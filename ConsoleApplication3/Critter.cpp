@@ -13,7 +13,10 @@ Critter::~Critter()
 
 void Critter::die()
 {
-	m_isAlive = false;
+	if (!m_immortal)
+	{
+		m_isAlive = false;
+	}
 }
 
 Pos Critter::getPos()
@@ -31,14 +34,74 @@ void Critter::setType(CritterType type)
 	m_type = type;
 }
 
-CritterType Critter::getType()
+CritterType Critter::GetType()
 {
 	return m_type;
 }
 
-terrainList Critter::canBeOn()
+bool Critter::IsAlive()
 {
-	terrainList terrain;
-	terrain.push_back(TerrainType::PLAIN);
-	return terrain;
+	return m_isAlive;
+}
+
+void Critter::Move(Directions dirs, terrainList terrains)
+{
+	Positions positions = GetAcceptableDirections(dirs, terrains);
+	if (positions.size() > 0)
+	{
+		Pos newPos = ChoseDirection(positions);
+		SetPosition(newPos);
+	}
+}
+
+Positions Critter::GetAcceptableDirections(Directions dirs, terrainList terrains)
+{
+	Positions canWalkTo;
+	for (auto & dir : dirs)
+	{
+		if (find(terrains.begin(), terrains.end(), dir.first) != terrains.end())
+		{
+			canWalkTo.push_back(dir.second);
+		}
+	}
+	return canWalkTo;
+}
+
+Pos Critter::ChoseDirection(Positions positions)
+{
+	int index = rand() % positions.size();
+	int i = 0;
+	for (auto & pos : positions)
+	{
+		if (i == index)
+		{
+			return pos;
+		}
+		i++;
+	}
+}
+
+void Critter::SetPosition(Pos newPos)
+{
+	m_pos = newPos;
+}
+
+void Critter::Eat(bool Murder)
+{
+	m_hungry = !Murder;
+}
+
+bool Critter::IsHungry()
+{
+	return m_hungry;
+}
+
+void Critter::SetBreeded(bool breeded)
+{
+	m_breeded = breeded;
+}
+
+bool Critter::GetBreeded()
+{
+	return m_breeded;
 }

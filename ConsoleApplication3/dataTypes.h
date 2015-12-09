@@ -1,7 +1,25 @@
 #pragma once
 #include <vector>
+#include <map>
 
 using namespace std;
+
+enum class TerrainType;
+enum class CritterType;
+
+struct Pos
+{
+	int x;
+	int y;
+};
+
+typedef vector<TerrainType> terrainList;
+typedef vector<Pos> Positions;
+typedef pair<TerrainType, Pos> Direction;
+typedef vector<Direction> Directions;
+typedef map<CritterType, terrainList> Areal;
+typedef vector<CritterType> CritterTypeList;
+typedef map<CritterType, CritterTypeList> Prey;
 
 enum class TerrainType
 {
@@ -26,11 +44,3 @@ enum class CritterType
 	GRASS, RABBIT, WOLF, HUNTER
 };
 
-struct Pos
-{
-	int x;
-	int y;
-};
-
-
-typedef vector<TerrainType> terrainList;

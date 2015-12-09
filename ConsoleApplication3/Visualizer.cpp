@@ -14,12 +14,13 @@ Visualizer::~Visualizer()
 
 void Visualizer::show(GeoData geodata)
 {
+	m_geo = geodata;
 	clrscr();
-	showMap(geodata.GetMap(), geodata.GetCritters());
+	showMap(m_geo.GetMap(), m_geo.GetCritters());
 	cout << endl;
 }
 
-void Visualizer::showMap(islandMap map, Critter::CritterList critters)
+void Visualizer::showMap(islandMap map, CritterList critters)
 {
 	for (int j = 0; j < islandMap::MAP_HEIGHT; j++)
 	{
@@ -30,12 +31,12 @@ void Visualizer::showMap(islandMap map, Critter::CritterList critters)
 	}
 }
 
-void Visualizer::drawBlock(IslandBlock block, Pos pos, Critter::CritterList critters)
+void Visualizer::drawBlock(IslandBlock block, Pos pos, CritterList critters)
 {
 	Pos blockPos = { pos.x * m_blockWidth, pos.y * m_blockHeight };
 	DrawTerrain(block.terrain, blockPos);
 	DrawWeather(block.weather, blockPos);
-	DrawBlockCritters(blockPos, GetCrittersAtPos({ pos.x, pos.y }, critters));
+	DrawBlockCritters(blockPos, m_geo.GetCrittersAtPos({ pos.x, pos.y }));
 }
 
 void Visualizer::DrawTerrain(TerrainType terrain, Pos pos)
@@ -57,10 +58,10 @@ void Visualizer::DrawWeather(WeatherType weather, Pos pos)
 	cout << this->weatherPattern[weather];
 }
 
-void Visualizer::DrawBlockCritters(Pos pos, Critter::CritterList critters)
+void Visualizer::DrawBlockCritters(Pos pos, CritterList critters)
 {
 	this->putCursorToPosition(pos.x, pos.y);
-	vector<Critter>::iterator it = critters.begin();
+	vector<CritterPtr>::iterator it = critters.begin();
 	for (int j = pos.y; j < (pos.y + m_blockHeight); j++)
 	{
 		for (int i = pos.x; i < (pos.x + m_blockWidth); i++)
@@ -70,7 +71,7 @@ void Visualizer::DrawBlockCritters(Pos pos, Critter::CritterList critters)
 				return;
 			}
 			putCursorToPosition(i, j);
-			cout << critterPattern[(*it).getType()];
+			cout << critterPattern[(*it)->GetType()];
 			it++;
 		}
 	}
@@ -92,18 +93,4 @@ void Visualizer::clrscr()
 void Visualizer::SetColor(int code)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), code);
-}
-
-Critter::CritterList Visualizer::GetCrittersAtPos(Pos pos, Critter::CritterList critters)
-{
-	Critter::CritterList crittersAtpos;
-	for (auto & critter : critters)
-	{
-		Pos critterPos = critter.getPos();
-		if (pos.x == critterPos.x && pos.y == critterPos.y)
-		{
-			crittersAtpos.push_back(critter);
-		}
-	}
-	return crittersAtpos;
 }
